@@ -1,7 +1,7 @@
 function App() {
 	return (
 		<>
-			<Text display={"hello"}></Text>
+			<Text display='hello'></Text>
 			<Text display={"how are you"}></Text>
 		</>
 	);
