@@ -46,11 +46,9 @@ function InputArea() {
 				<div className='divider divider-horizontal'></div>
 				<TextArea placeholder='Output' />
 			</div>
-
 			<div className='flex justify-center'>
 				<TextArea placeholder='Key' />
 			</div>
-
 			<div className='flex gap-4 justify-center'>
 				<Button text='Encrypt'></Button>
 				<Button text='Decrypt'></Button>
