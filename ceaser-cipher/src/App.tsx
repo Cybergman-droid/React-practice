@@ -1,8 +1,9 @@
+import type { ComponentProps } from "react";
 function App() {
 	return (
 		<>
 			<WelcomeMessage />
-			<InputArea />
+			<InputForm />
 		</>
 	);
 }
@@ -19,11 +20,32 @@ function WelcomeMessage() {
 		</div>
 	);
 }
+type ButtonVariant = "encrypt" | "decrypt";
+type ButtonProps = {
+	variant: ButtonVariant;
+} & ComponentProps<"button">;
 
-function Button({ text }: { text: string }) {
+function getVarientStylesButton(variant: ButtonVariant) {
+	switch (variant) {
+		case "encrypt":
+			return "accent";
+
+		case "decrypt":
+			return "info";
+		default:
+			throw new Error(`Invalid variant: ${variant satisfies never}`);
+	}
+}
+
+function Button({ ...props }: ButtonProps) {
 	return (
 		<div>
-			<button className='btn btn-success'>{text}</button>
+			<button
+				{...props}
+				className={`btn btn-${getVarientStylesButton(props.variant)}`}
+			>
+				{props.content}
+			</button>
 		</div>
 	);
 }
@@ -37,23 +59,26 @@ function TextArea({ placeholder }: { placeholder: string }) {
 	);
 }
 
-function InputArea() {
+function InputForm() {
 	return (
-		<div className='flex flex-col justify-center'>
-			<div className='flex justify-center '>
-				<TextArea placeholder='Input' />
+		<form>
+			<div className='flex flex-col justify-center'>
+				<div className='flex justify-center '>
+					<TextArea placeholder='Input' />
 
-				<div className='divider divider-horizontal'></div>
-				<TextArea placeholder='Output' />
+					<div className='divider divider-horizontal'></div>
+					<TextArea placeholder='Output' />
+				</div>
+				<div className='flex justify-center'>
+					<TextArea placeholder='Key' />
+				</div>
+
+				<div className='flex gap-4 justify-center'>
+					<Button variant='encrypt' content='Encrypt'></Button>
+					<Button variant='decrypt' content='Decrypt'></Button>
+				</div>
 			</div>
-			<div className='flex justify-center'>
-				<TextArea placeholder='Key' />
-			</div>
-			<div className='flex gap-4 justify-center'>
-				<Button text='Encrypt'></Button>
-				<Button text='Decrypt'></Button>
-			</div>
-		</div>
+		</form>
 	);
 }
 export default App;
