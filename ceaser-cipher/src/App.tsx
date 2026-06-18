@@ -1,9 +1,11 @@
-import type { ComponentProps } from "react";
+import { useState, type ComponentProps } from "react";
 function App() {
 	return (
 		<>
 			<WelcomeMessage />
 			<InputForm />
+			<TestButton />
+			<TestButton />
 		</>
 	);
 }
@@ -56,6 +58,18 @@ function TextArea({ placeholder }: { placeholder: string }) {
 			placeholder={placeholder}
 			className='textarea textarea-info resize-none'
 		></textarea>
+	);
+}
+
+function TestButton() {
+	const [type, setVariant] = useState("primary");
+	return (
+		<div>
+			<button
+				className={`btn btn-${type}`}
+				onClick={() => setVariant("info")}
+			></button>
+		</div>
 	);
 }
 
