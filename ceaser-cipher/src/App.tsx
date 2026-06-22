@@ -4,8 +4,7 @@ function App() {
 		<>
 			<WelcomeMessage />
 			<InputForm />
-			<TestButton />
-			<TestButton />
+			<TestButtonGroup />
 		</>
 	);
 }
@@ -60,15 +59,34 @@ function TextArea({ placeholder }: { placeholder: string }) {
 		></textarea>
 	);
 }
-
-function TestButton() {
-	const [type, setVariant] = useState("primary");
+let buttonTypes: string[] = [
+	"info",
+	"secondary",
+	"accent",
+	"success",
+	"warning",
+	"error",
+];
+function TestButton({ type, content }: { type: string; content?: string }) {
 	return (
 		<div>
-			<button
-				className={`btn btn-${type}`}
-				onClick={() => setVariant("info")}
-			></button>
+			<button className={`btn btn-${type}`}>{content ?? ""}</button>
+		</div>
+	);
+}
+
+function TestButtonGroup() {
+	const [type, setType] = useState("primary");
+	const handleClick = (e: any) => {
+		console.log(`Clicked element: ${e.target.content}`);
+		console.log(`Clicked element content: ${e.target.text}`);
+	};
+	return (
+		<div className='flex gap-7' onClick={handleClick}>
+			<TestButton type={type} content='One' />
+			<TestButton type={type} content='Two' />
+			<TestButton type={type} content='Three' />
+			<TestButton type={type} content='Four' />
 		</div>
 	);
 }
