@@ -4,7 +4,7 @@ function App() {
 		<>
 			<WelcomeMessage />
 			<InputForm />
-			<TestButtonGroup />
+			<TestButtonGroup type={One} />
 		</>
 	);
 }
@@ -75,20 +75,62 @@ function TestButton({ type, content }: { type: string; content?: string }) {
 	);
 }
 
-function TestButtonGroup() {
-	const [type, setType] = useState("primary");
+function TestButtonVariant(variant: any) {
+	switch (variant) {
+		case "One":
+			return "accent";
+
+		case "decrypt":
+			return "info";
+	}
+}
+function TestButtonGroup({ type }: { type: string }) {
 	const handleClick = (e: any) => {
-		console.log(`Clicked element: ${e.target.content}`);
-		console.log(`Clicked element content: ${e.target.text}`);
+		console.log(`Clicked element: ${e.target}`);
+		console.log(`Clicked element content: ${e.target.innerHTML}`);
 	};
-	return (
-		<div className='flex gap-7' onClick={handleClick}>
-			<TestButton type={type} content='One' />
-			<TestButton type={type} content='Two' />
-			<TestButton type={type} content='Three' />
-			<TestButton type={type} content='Four' />
-		</div>
-	);
+	switch (type) {
+		case "One":
+			return (
+				<div className='flex gap-7' onClick={handleClick}>
+					<TestButton type='accent' content='One' />
+					<TestButton type={type} content='Two' />
+					<TestButton type={type} content='Three' />
+					<TestButton type={type} content='Four' />
+				</div>
+			);
+
+		case "Two":
+			return (
+				<div className='flex gap-7' onClick={handleClick}>
+					<TestButton type='primary' content='One' />
+					<TestButton type='accent' content='Two' />
+					<TestButton type='primary' content='Three' />
+					<TestButton type='primary' content='Four' />
+				</div>
+			);
+
+		case "Three":
+			return (
+				<div className='flex gap-7' onClick={handleClick}>
+					<TestButton type='primary' content='One' />
+					<TestButton type='primary' content='Two' />
+					<TestButton type='accent' content='Three' />
+					<TestButton type='primary' content='Four' />
+				</div>
+			);
+		case "Four":
+			return (
+				<div className='flex gap-7' onClick={handleClick}>
+					<TestButton type='primary' content='One' />
+					<TestButton type='primary' content='Two' />
+					<TestButton type='primary' content='Three' />
+					<TestButton type='accent' content='Four' />
+				</div>
+			);
+		default:
+			break;
+	}
 }
 
 function InputForm() {
