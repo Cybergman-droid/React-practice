@@ -4,7 +4,10 @@ function App() {
 		<>
 			<WelcomeMessage />
 			<InputForm />
-			<TestButtonGroup type={One} />
+			<TestButtonGroup />
+			<TestButtonGroup />
+			<TestButtonGroup />
+			<TestButtonGroup />
 		</>
 	);
 }
@@ -59,14 +62,14 @@ function TextArea({ placeholder }: { placeholder: string }) {
 		></textarea>
 	);
 }
-let buttonTypes: string[] = [
-	"info",
-	"secondary",
-	"accent",
-	"success",
-	"warning",
-	"error",
-];
+// let buttonTypes: string[] = [
+// 	"info",
+// 	"secondary",
+// 	"accent",
+// 	"success",
+// 	"warning",
+// 	"error",
+//];
 function TestButton({ type, content }: { type: string; content?: string }) {
 	return (
 		<div>
@@ -75,28 +78,26 @@ function TestButton({ type, content }: { type: string; content?: string }) {
 	);
 }
 
-function TestButtonVariant(variant: any) {
-	switch (variant) {
-		case "One":
-			return "accent";
+function TestButtonGroup() {
+	const [navbarType, setNavbartype] = useState("One");
 
-		case "decrypt":
-			return "info";
-	}
-}
-function TestButtonGroup({ type }: { type: string }) {
 	const handleClick = (e: any) => {
 		console.log(`Clicked element: ${e.target}`);
 		console.log(`Clicked element content: ${e.target.innerHTML}`);
+		if (e.target instanceof HTMLButtonElement) {
+			setNavbartype(e.target.innerHTML);
+		} else {
+			console.log("Bouuton elemrnt not clicked ");
+		}
 	};
-	switch (type) {
+	switch (navbarType) {
 		case "One":
 			return (
 				<div className='flex gap-7' onClick={handleClick}>
 					<TestButton type='accent' content='One' />
-					<TestButton type={type} content='Two' />
-					<TestButton type={type} content='Three' />
-					<TestButton type={type} content='Four' />
+					<TestButton type='primary' content='Two' />
+					<TestButton type='primary' content='Three' />
+					<TestButton type='primary' content='Four' />
 				</div>
 			);
 
@@ -129,7 +130,7 @@ function TestButtonGroup({ type }: { type: string }) {
 				</div>
 			);
 		default:
-			break;
+			throw new Error();
 	}
 }
 
